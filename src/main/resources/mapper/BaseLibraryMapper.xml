@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.szeastroc.middle.code.syn.mapper.BaseLibraryMapper">
+
+
+    <insert id="importProductionCode" parameterType="com.szeastroc.middle.code.syn.model.ProductionCode">
+        insert into ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productionCode.boxOutCode != null">
+                box_out_code,
+            </if>
+            <if test="productionCode.boxInCode != null">
+                box_in_code,
+            </if>
+            <if test="productionCode.outCode != null">
+                out_code,
+            </if>
+            <if test="productionCode.amount != null">
+                amount,
+            </if>
+            <if test="productionCode.productTime != null">
+                product_time,
+            </if>
+            <if test="productionCode.collectTime != null">
+                collect_time,
+            </if>
+            <if test="productionCode.productionLineCode != null">
+                production_line_code,
+            </if>
+            <if test="productionCode.factoryCode != null">
+                factory_code,
+            </if>
+            <if test="productionCode.productCode != null">
+                product_code,
+            </if>
+            <if test="productionCode.teamName != null">
+                team_name,
+            </if>
+            <if test="productionCode.batchNo != null">
+                batch_no,
+            </if>
+            <if test="productionCode.smallBatchNo != null">
+                small_batch_no,
+            </if>
+            <if test="productionCode.status != null">
+                `status`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productionCode.boxOutCode != null">
+                #{productionCode.boxOutCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.boxInCode != null">
+                #{productionCode.boxInCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.outCode != null">
+                #{productionCode.outCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.amount != null">
+                #{productionCode.amount,jdbcType=INTEGER},
+            </if>
+            <if test="productionCode.productTime != null">
+                #{productionCode.productTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productionCode.collectTime != null">
+                #{productionCode.collectTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productionCode.productionLineCode != null">
+                #{productionCode.productionLineCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.factoryCode != null">
+                #{productionCode.factoryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.productCode != null">
+                #{productionCode.productCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.teamName != null">
+                #{productionCode.teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.batchNo != null">
+                #{productionCode.batchNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.smallBatchNo != null">
+                #{productionCode.smallBatchNo,jdbcType=VARCHAR},
+            </if>
+            <if test="productionCode.status != null">
+                #{productionCode.status,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="importSendCodeDetail" parameterType="com.szeastroc.middle.code.syn.model.SendCodeDetail">
+        insert into ${tableName} (box_out_code,factory_code,agent_code,product_code,out_stock_date,scan_time,batch_no,small_batch_no,order_no,create_time,audit_time,send_goods_time,doc_time)
+        values (#{sendCodeDetail.boxOutCode,jdbcType=VARCHAR}, #{sendCodeDetail.factoryCode,jdbcType=VARCHAR},
+        #{sendCodeDetail.agentCode,jdbcType=VARCHAR}, #{sendCodeDetail.productCode,jdbcType=VARCHAR},
+        #{sendCodeDetail.outStockDate,jdbcType=TIMESTAMP},#{sendCodeDetail.scanTime,jdbcType=TIMESTAMP},#{sendCodeDetail.batchNo,jdbcType=VARCHAR},
+        #{sendCodeDetail.smallBatchNo,jdbcType=VARCHAR}, #{sendCodeDetail.orderNo,jdbcType=VARCHAR},#{sendCodeDetail.createTime,jdbcType=TIMESTAMP},
+        #{sendCodeDetail.auditTime,jdbcType=TIMESTAMP},#{sendCodeDetail.sendGoodsTime,jdbcType=TIMESTAMP},#{sendCodeDetail.docTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="importWarehousing" parameterType="com.szeastroc.middle.code.syn.model.Warehousing">
+        insert into ${tableName}  (box_code,inbound_order_number,warehousing_date,material_code,material_name,batch_no,small_batch_no,in_warehouse,warehouse,
+        warehouse_code,scan_people,scan_people_no,scan_date,production_date,team,production_line)
+        values (#{warehousing.boxCode,jdbcType=VARCHAR},#{warehousing.inboundOrderNumber,jdbcType=VARCHAR},#{warehousing.warehousingDate,jdbcType=TIMESTAMP},
+        #{warehousing.materialCode,jdbcType=VARCHAR},#{warehousing.materialName,jdbcType=VARCHAR},#{warehousing.batchNo,jdbcType=VARCHAR},
+        #{warehousing.smallBatchNo,jdbcType=VARCHAR},#{warehousing.inWarehouse,jdbcType=VARCHAR},#{warehousing.warehouse,jdbcType=VARCHAR},
+        #{warehousing.warehouseCode,jdbcType=VARCHAR},#{warehousing.scanPeople,jdbcType=VARCHAR},#{warehousing.scanPeopleNo,jdbcType=VARCHAR},
+        #{warehousing.scanDate,jdbcType=TIMESTAMP},#{warehousing.productionDate,jdbcType=TIMESTAMP},#{warehousing.team,jdbcType=VARCHAR},
+        #{warehousing.productionLine,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>
