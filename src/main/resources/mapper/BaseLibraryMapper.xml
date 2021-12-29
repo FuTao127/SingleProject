@@ -90,6 +90,20 @@
         </trim>
     </insert>
 
+
+    <insert id="importBatchProductionCode"  parameterType="java.util.List">
+        insert into ${tableName} (box_out_code,box_in_code,out_code,amount,product_time,collect_time,production_line_code,factory_code,product_code,team_name,batch_no,small_batch_no,task_id)
+        VALUES
+        <foreach collection="productionCodes" item="productionCode" index="index" separator="," >
+            (#{productionCode.boxOutCode,jdbcType=VARCHAR}, #{productionCode.boxInCode,jdbcType=VARCHAR},
+            #{productionCode.outCode,jdbcType=VARCHAR}, #{productionCode.amount,jdbcType=INTEGER},
+            #{productionCode.productTime,jdbcType=TIMESTAMP}, #{productionCode.collectTime,jdbcType=TIMESTAMP},
+            #{productionCode.productionLineCode,jdbcType=VARCHAR}, #{productionCode.factoryCode,jdbcType=VARCHAR},
+            #{productionCode.productCode,jdbcType=VARCHAR}, #{productionCode.teamName,jdbcType=VARCHAR},#{productionCode.batchNo,jdbcType=VARCHAR},#{productionCode.smallBatchNo,jdbcType=VARCHAR},
+            #{taskId,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
     <insert id="importSendCodeDetail" parameterType="com.szeastroc.middle.code.syn.model.SendCodeDetail">
         insert into ${tableName} (box_out_code,factory_code,agent_code,product_code,out_stock_date,scan_time,batch_no,small_batch_no,order_no,create_time,audit_time,send_goods_time,doc_time)
         values (#{sendCodeDetail.boxOutCode,jdbcType=VARCHAR}, #{sendCodeDetail.factoryCode,jdbcType=VARCHAR},
@@ -97,6 +111,20 @@
         #{sendCodeDetail.outStockDate,jdbcType=TIMESTAMP},#{sendCodeDetail.scanTime,jdbcType=TIMESTAMP},#{sendCodeDetail.batchNo,jdbcType=VARCHAR},
         #{sendCodeDetail.smallBatchNo,jdbcType=VARCHAR}, #{sendCodeDetail.orderNo,jdbcType=VARCHAR},#{sendCodeDetail.createTime,jdbcType=TIMESTAMP},
         #{sendCodeDetail.auditTime,jdbcType=TIMESTAMP},#{sendCodeDetail.sendGoodsTime,jdbcType=TIMESTAMP},#{sendCodeDetail.docTime,jdbcType=TIMESTAMP})
+    </insert>
+
+
+
+    <insert id="importBatchSendCodeDetail"  parameterType="java.util.List">
+        insert into ${tableName} (box_out_code,factory_code,agent_code,product_code,out_stock_date,scan_time,batch_no,small_batch_no,order_no,create_time,audit_time,send_goods_time,doc_time,task_id)
+        VALUES
+        <foreach collection="sendCodeDetails" item="sendCodeDetail" index="index" separator="," >
+            (#{sendCodeDetail.boxOutCode,jdbcType=VARCHAR}, #{sendCodeDetail.factoryCode,jdbcType=VARCHAR},
+            #{sendCodeDetail.agentCode,jdbcType=VARCHAR}, #{sendCodeDetail.productCode,jdbcType=VARCHAR},
+            #{sendCodeDetail.outStockDate,jdbcType=TIMESTAMP},#{sendCodeDetail.scanTime,jdbcType=TIMESTAMP},#{sendCodeDetail.batchNo,jdbcType=VARCHAR},
+            #{sendCodeDetail.smallBatchNo,jdbcType=VARCHAR}, #{sendCodeDetail.orderNo,jdbcType=VARCHAR},#{sendCodeDetail.createTime,jdbcType=TIMESTAMP},
+            #{sendCodeDetail.auditTime,jdbcType=TIMESTAMP},#{sendCodeDetail.sendGoodsTime,jdbcType=TIMESTAMP},#{sendCodeDetail.docTime,jdbcType=TIMESTAMP},#{taskId,jdbcType=VARCHAR})
+        </foreach>
     </insert>
 
     <insert id="importWarehousing" parameterType="com.szeastroc.middle.code.syn.model.Warehousing">
@@ -108,6 +136,24 @@
         #{warehousing.warehouseCode,jdbcType=VARCHAR},#{warehousing.scanPeople,jdbcType=VARCHAR},#{warehousing.scanPeopleNo,jdbcType=VARCHAR},
         #{warehousing.scanDate,jdbcType=TIMESTAMP},#{warehousing.productionDate,jdbcType=TIMESTAMP},#{warehousing.team,jdbcType=VARCHAR},
         #{warehousing.productionLine,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="importBatchWarehousing"  parameterType="java.util.List">
+        insert into ${tableName} (box_code,inbound_order_number,warehousing_date,material_code,material_name,batch_no,small_batch_no,in_warehouse,warehouse,
+        warehouse_code,scan_people,scan_people_no,scan_date,production_date,team,production_line,task_id)
+        VALUES
+        <foreach collection="warehousings" item="warehousing" index="index" separator="," >
+            (#{warehousing.boxCode,jdbcType=VARCHAR},#{warehousing.inboundOrderNumber,jdbcType=VARCHAR},#{warehousing.warehousingDate,jdbcType=TIMESTAMP},
+            #{warehousing.materialCode,jdbcType=VARCHAR},#{warehousing.materialName,jdbcType=VARCHAR},#{warehousing.batchNo,jdbcType=VARCHAR},
+            #{warehousing.smallBatchNo,jdbcType=VARCHAR},#{warehousing.inWarehouse,jdbcType=VARCHAR},#{warehousing.warehouse,jdbcType=VARCHAR},
+            #{warehousing.warehouseCode,jdbcType=VARCHAR},#{warehousing.scanPeople,jdbcType=VARCHAR},#{warehousing.scanPeopleNo,jdbcType=VARCHAR},
+            #{warehousing.scanDate,jdbcType=TIMESTAMP},#{warehousing.productionDate,jdbcType=TIMESTAMP},#{warehousing.team,jdbcType=VARCHAR},
+            #{warehousing.productionLine,jdbcType=VARCHAR},#{taskId,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="insertTaskId">
+        insert ignore into t_import_record  (id) values (#{id})
     </insert>
 
 </mapper>

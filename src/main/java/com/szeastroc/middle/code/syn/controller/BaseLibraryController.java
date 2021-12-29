@@ -2,10 +2,9 @@ package com.szeastroc.middle.code.syn.controller;
 
 
 import com.szeastroc.middle.code.syn.annotation.LogSection;
-import com.szeastroc.middle.code.syn.constants.EastrocException;
-import com.szeastroc.middle.code.syn.model.ProductionCode;
-import com.szeastroc.middle.code.syn.model.SendCodeDetail;
-import com.szeastroc.middle.code.syn.model.Warehousing;
+import com.szeastroc.middle.code.syn.dto.ProductionCodeDTO;
+import com.szeastroc.middle.code.syn.dto.SendCodeDetailDTO;
+import com.szeastroc.middle.code.syn.dto.WarehousingDTO;
 import com.szeastroc.middle.code.syn.service.BaseLibraryService;
 import com.szeastroc.middle.code.syn.service.LoginService;
 import com.szeastroc.middle.code.syn.utils.Result;
@@ -36,61 +35,79 @@ public class BaseLibraryController {
     @Autowired
     private LoginService loginService;
 
-    /**
-     * 生产码导入到基地库
-     * @return
-     */
-    @PostMapping("importProductionCode")
-    @ApiOperation("生产码导入到基地库")
-    @LogSection
-    public Result importProductionCode(@RequestBody ProductionCode productionCode){
-        try {
-            loginService.verifyToken();
-            return ResultUtils.render(baseLibraryService.importProductionCode(productionCode));
-        }catch (EastrocException e){
-            return ResultUtils.noLoginError(e.getMessage());
-        }catch (Exception e){
-            log.info("importProductionCode======================={}",e);
-            return ResultUtils.renderError(e.getMessage());
-        }
-    }
+//    /**
+//     * 生产码导入到基地库
+//     * @return
+//     */
+//    @PostMapping("importProductionCode")
+//    @ApiOperation("生产码导入到基地库")
+//    @LogSection
+//    public Result importProductionCode(@RequestBody ProductionCode productionCode){
+//        loginService.verifyToken();
+//        return ResultUtils.render(baseLibraryService.importProductionCode(productionCode));
+//    }
 
     /**
-     * 发货详情信息入到基地库
+     * 生产码批量导入到基地库
      * @return
      */
-    @PostMapping("importSendCodeDetail")
-    @ApiOperation("发货详情信息入到基地库")
+    @PostMapping("importBatchProductionCode")
+    @ApiOperation("生产码批量导入到基地库")
     @LogSection
-    public Result importSendCodeDetail(@RequestBody SendCodeDetail sendCodeDetail){
-        try {
-            loginService.verifyToken();
-            return ResultUtils.render(baseLibraryService.importSendCodeDetail(sendCodeDetail));
-        }catch (EastrocException e){
-            return ResultUtils.noLoginError(e.getMessage());
-        }catch (Exception e){
-            log.info("importSendCodeDetail======================={}",e);
-            return ResultUtils.renderError(e.getMessage());
-        }
+    public Result importBatchProductionCode(@RequestBody ProductionCodeDTO productionCodeDTO){
+        loginService.verifyToken();
+        return ResultUtils.render(baseLibraryService.importBatchProductionCode(productionCodeDTO));
     }
 
+
+//    /**
+//     * 发货详情信息入到基地库
+//     * @return
+//     */
+//    @PostMapping("importSendCodeDetail")
+//    @ApiOperation("发货详情信息入到基地库")
+//    @LogSection
+//    public Result importSendCodeDetail(@RequestBody SendCodeDetail sendCodeDetail){
+//        loginService.verifyToken();
+//        return ResultUtils.render(baseLibraryService.importSendCodeDetail(sendCodeDetail));
+//    }
+
+
     /**
-     * 入库详情信息入基地库
-     * @param warehousing
+     * 发货详情信息批量导入到基地库
      * @return
      */
-    @PostMapping("importWarehousing")
-    @ApiOperation("入库详情信息入基地库")
+    @PostMapping("importBatchSendCodeDetail")
+    @ApiOperation("发货详情信息批量导入到基地库")
     @LogSection
-    public Result importWarehousing(@RequestBody Warehousing warehousing){
-        try {
-            loginService.verifyToken();
-            return ResultUtils.render(baseLibraryService.importWarehousing(warehousing));
-        }catch (EastrocException e){
-            return ResultUtils.noLoginError(e.getMessage());
-        }catch (Exception e){
-            log.info("importWarehousing======================={}",e);
-            return ResultUtils.renderError(e.getMessage());
-        }
+    public Result importBatchSendCodeDetail(@RequestBody SendCodeDetailDTO sendCodeDetailDTO){
+        loginService.verifyToken();
+        return ResultUtils.render(baseLibraryService.importBatchSendCodeDetail(sendCodeDetailDTO));
+    }
+
+//    /**
+//     * 入库详情信息入基地库
+//     * @param warehousing
+//     * @return
+//     */
+//    @PostMapping("importWarehousing")
+//    @ApiOperation("入库详情信息入基地库")
+//    @LogSection
+//    public Result importWarehousing(@RequestBody Warehousing warehousing){
+//        loginService.verifyToken();
+//        return ResultUtils.render(baseLibraryService.importWarehousing(warehousing));
+//    }
+
+    /**
+     * 入库详情信息批量导入基地库
+     * @param warehousingDTO
+     * @return
+     */
+    @PostMapping("importBatchWarehousing")
+    @ApiOperation("入库详情信息批量导入基地库")
+    @LogSection
+    public Result importBatchWarehousing(@RequestBody WarehousingDTO warehousingDTO){
+        loginService.verifyToken();
+        return ResultUtils.render(baseLibraryService.importBatchWarehousing(warehousingDTO));
     }
 }

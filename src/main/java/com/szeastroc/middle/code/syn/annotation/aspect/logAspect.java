@@ -1,5 +1,6 @@
 package com.szeastroc.middle.code.syn.annotation.aspect;
 
+import com.szeastroc.middle.code.syn.constants.EastrocException;
 import com.szeastroc.middle.code.syn.utils.Result;
 import com.szeastroc.middle.code.syn.utils.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +32,19 @@ public class logAspect {
             inParam.append(paramNames[i]).append(":").append(paramValues[i]);
         }
         log.info(inParam.toString());
+        long beginTime = System.currentTimeMillis();
         try {
-            long beginTime = System.currentTimeMillis();
             Object proceed = point.proceed();
             long endTime = System.currentTimeMillis();
             if(proceed instanceof Result){
                 result = (Result)proceed;
             }
-            log.info(clssMethodName+" 总耗时:"+(endTime-beginTime)+"毫秒。出参 ："+result.toString());
-        }  catch (Throwable throwable) {
+            log.info(clssMethodName+" 总耗时:"+(endTime - beginTime)+"毫秒。出参 ："+result.toString());
+        }catch (EastrocException e){
+            long endTime = System.currentTimeMillis();
+            log.info(clssMethodName+" 总耗时:"+(endTime - beginTime)+"毫秒。出参 ："+ResultUtils.renderError(e.getMessage()));
+            return ResultUtils.renderError(e.getMessage(),e.getCode());
+        } catch (Throwable throwable) {
             throwable.printStackTrace();
             return ResultUtils.renderError(throwable.getMessage());
         }

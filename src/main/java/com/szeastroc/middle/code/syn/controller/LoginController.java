@@ -33,13 +33,7 @@ public class LoginController {
     @ApiOperation("基地库用户导码登陆")
     @LogSection
     public Result login(@RequestBody LoginDTO loginDTO) {
-        try {
-            return ResultUtils.render(loginService.login(loginDTO));
-        } catch (Exception e) {
-            log.info("login异常========>{}",e);
-            return ResultUtils.renderError(e.getMessage());
-        }
-
+        return ResultUtils.render(loginService.login(loginDTO));
     }
 
 }

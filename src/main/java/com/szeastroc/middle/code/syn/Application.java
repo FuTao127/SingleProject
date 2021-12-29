@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan("com.szeastroc")
 @Slf4j
 //@PropertySource({"file:/var/server-config/otoc/otoc-realtime-syn/application.properties"})
-@PropertySource({"file:E:\\application.properties"})
+@PropertySource({"file:F:\\project\\otoc\\otoc-realtime-syn\\src\\main\\resources\\application.properties"})
 public class Application {
 
     public static void main(String[] args) {

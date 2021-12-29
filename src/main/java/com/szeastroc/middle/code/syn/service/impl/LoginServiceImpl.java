@@ -47,12 +47,12 @@ public class LoginServiceImpl implements LoginService{
 
         Userinfo userinfo = userInfoMapper.findByAccount(loginDTO.getUserName().trim());
         if (userinfo == null) {
-            throw new EastrocException("用户或密码错误");
+            throw new EastrocException("401","用户或密码错误");
         }
 
         String password = ShiroSaltUtils.generatePassword(loginDTO.getPassWord().trim(), userinfo.getSalt());
         if (!StringUtils.equals(password, userinfo.getPassWord())) {
-            throw new EastrocException("用户或密码错误");
+            throw new EastrocException("401","用户或密码错误");
         }
 
         String token = UUID.randomUUID().toString().replaceAll("-", "");
@@ -86,11 +86,11 @@ public class LoginServiceImpl implements LoginService{
     public Userinfo verifyToken(){
         String token = request.getHeader("token");
         if (StringUtils.isBlank(token)) {
-            throw new EastrocException("invalid token");
+            throw new EastrocException("401","invalid token");
         }
         String  userinfoStr = redisTemplate.opsForValue().get(RedisPrefix.CURRENT_USER+token);
         if (StringUtils.isEmpty(userinfoStr)) {
-            throw new EastrocException("invalid token");
+            throw new EastrocException("401","invalid token");
         }
         return JSON.parseObject(userinfoStr, Userinfo.class);
     }
